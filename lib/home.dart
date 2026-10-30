@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
       ),
       body: Center(child: Column(children: [
         const SizedBox(height: 20),
-        Text('SUM: $_text', style: TextStyle(fontSize: 18)),
+        Text('You typed: $_text', style: TextStyle(fontSize: 18)),
         MyTextField(f: updateText, hint: 'Enter some text')
       ],)),
     );
