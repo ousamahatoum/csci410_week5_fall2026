@@ -8,6 +8,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String _image = 'assets/p1.jpg';
+
+  final List<String> _images = [
+  'assets/p1.jpg',
+  'assets/p2.jpg',
+  'assets/p3.jpg',
+  'assets/p4.jpg'
+  ];
+
+  int _count = 0;
+
+
   String _text = '';
   double _x = -1, _y = -1;
 
@@ -31,6 +43,9 @@ class _HomeState extends State<Home> {
 
   void updateText() {
     setState(() {
+      _count = (_count + 1) % _images.length;
+      _image = _images[_count];
+
       if (_x == -1 || _y == -1) {
         _text = 'Please fill all fields';
       }
@@ -54,7 +69,9 @@ class _HomeState extends State<Home> {
         const SizedBox(height: 10),
         MyTextField(f: updateY, hint: 'Enter Y'),
         const SizedBox(height: 10),
-        ElevatedButton(onPressed: updateText, child: const Text('SUM', style: TextStyle(fontSize: 24)))
+        ElevatedButton(onPressed: updateText, child: const Text('SUM', style: TextStyle(fontSize: 24))),
+        const SizedBox(height: 10),
+        Image.asset(_image, width: 250, height: 250)
       ],)),
     );
   }
