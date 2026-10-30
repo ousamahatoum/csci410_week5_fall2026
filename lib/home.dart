@@ -9,10 +9,34 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _text = '';
+  double _x = -1, _y = -1;
 
-  void updateText(String text) {
+  void updateX(String x) {
+    if (x.trim() == '') {
+      _x = -1;
+    }
+    else {
+      _x = double.parse(x);
+    }
+  }
+
+  void updateY(String y) {
+    if (y.trim() == '') {
+      _y = -1;
+    }
+    else {
+      _y = double.parse(y);
+    }
+  }
+
+  void updateText() {
     setState(() {
-      _text = text;
+      if (_x == -1 || _y == -1) {
+        _text = 'Please fill all fields';
+      }
+      else {
+        _text = (_x + _y).toString();
+      }
     });
   }
 
@@ -23,9 +47,14 @@ class _HomeState extends State<Home> {
         title: Text('Home Page'),
       ),
       body: Center(child: Column(children: [
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
         Text('SUM: $_text', style: TextStyle(fontSize: 18)),
-        MyTextField(f: updateText, hint: 'Enter some text')
+        const SizedBox(height: 10),
+        MyTextField(f: updateX, hint: 'Enter X'),
+        const SizedBox(height: 10),
+        MyTextField(f: updateY, hint: 'Enter Y'),
+        const SizedBox(height: 10),
+        ElevatedButton(onPressed: updateText, child: const Text('SUM', style: TextStyle(fontSize: 24)))
       ],)),
     );
   }
@@ -49,6 +78,7 @@ class MyTextField extends StatelessWidget {
       decoration: InputDecoration(
         border: OutlineInputBorder(), hintText: hint
       ),
+      keyboardType: TextInputType.number,
       onChanged: (text) => f(text),
     ));
   }
